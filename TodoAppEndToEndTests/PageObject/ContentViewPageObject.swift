@@ -15,6 +15,10 @@ final class ContentViewPageObject {
         app.buttons["saveTaskButton"]
     }
     
+    var messageText: XCUIElement {
+        app.staticTexts["messageText"]
+    }
+    
     var taskList: XCUIElement {
         app.collectionViews["taskList"]
     }

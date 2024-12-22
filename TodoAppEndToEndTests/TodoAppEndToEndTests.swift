@@ -45,4 +45,24 @@ final class when_user_saves_a_new_task: XCTestCase {
         
         XCTAssertEqual(1, pageObject.taskList.cells.count)
     }
+    
+    func test_should_display_error_message_for_duplicate_title_tasks() {
+        let titleTextField = pageObject.titleTextField
+        let saveTaskButton = pageObject.saveTaskButton
+        let messageText = pageObject.messageText
+        let taskList = pageObject.taskList
+        
+        titleTextField.tap()
+        titleTextField.typeText("Mow the lawn")
+         
+        saveTaskButton.tap()
+        
+        titleTextField.tap()
+        titleTextField.typeText("Mow the lawn")
+        
+        saveTaskButton.tap()
+        
+        XCTAssertEqual(1, taskList.cells.count)
+        XCTAssertEqual(messageText.label, "Task is already added")
+    }
 }
