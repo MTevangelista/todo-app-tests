@@ -66,3 +66,34 @@ final class when_user_saves_a_new_task: XCTestCase {
         XCTAssertEqual(messageText.label, "Task is already added")
     }
 }
+
+final class when_user_deletes_a_new_task: XCTestCase {
+    
+    private var app: XCUIApplication!
+    private var pageObject: ContentViewPageObject!
+    
+    override func setUp() {
+        app = XCUIApplication()
+        pageObject = ContentViewPageObject(app: app)
+        continueAfterFailure = false
+        app.launch()
+        
+        pageObject.titleTextField.tap()
+        pageObject.titleTextField.typeText("Mow the lawn")
+        
+        pageObject.saveTaskButton.tap()
+    }
+    
+    override func tearDown() {
+        Springboard.deleteApp()
+    }
+    
+    func test_should_delete_task_successfully() {
+        let cell = pageObject.taskList.cells.element(boundBy: 0)
+        cell.swipeLeft()
+        
+        pageObject.taskList.buttons["Delete"].tap()
+        
+        XCTAssertFalse(cell.exists)
+    }
+}
