@@ -15,11 +15,19 @@ final class ContentViewPageObject {
         app.buttons["saveTaskButton"]
     }
     
+    var closeButton: XCUIElement {
+        app.buttons["closeButton"]
+    }
+    
     var messageText: XCUIElement {
         app.staticTexts["messageText"]
     }
     
     var taskList: XCUIElement {
         app.collectionViews["taskList"]
+    }
+    
+    var favoriteImage: XCUIElement {
+        app.images["favoriteImage"]
     }
 }

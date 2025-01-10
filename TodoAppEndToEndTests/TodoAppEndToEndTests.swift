@@ -97,3 +97,34 @@ final class when_user_deletes_a_new_task: XCTestCase {
         XCTAssertFalse(cell.exists)
     }
 }
+
+final class when_user_marks_task_as_favorite: XCTestCase {
+    private var app: XCUIApplication!
+    private var pageObject: ContentViewPageObject!
+    
+    override func setUp() {
+        app = XCUIApplication()
+        pageObject = ContentViewPageObject(app: app)
+        continueAfterFailure = false
+        app.launch()
+        
+        pageObject.titleTextField.tap()
+        pageObject.titleTextField.typeText("Mow the lawn")
+        
+        pageObject.saveTaskButton.tap()
+    }
+    
+    override func tearDown() {
+        Springboard.deleteApp()
+    }
+    
+    func test_should_displayed_updated_task_on_screen_as_favorite() {
+        let cell = pageObject.taskList.cells.element(boundBy: 0)
+        cell.tap()
+        
+        pageObject.favoriteImage.tap()
+        pageObject.closeButton.tap()
+        
+        XCTAssertTrue(app.images["homeCellFavouriteImage"].exists)
+    }
+}

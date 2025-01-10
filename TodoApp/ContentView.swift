@@ -81,6 +81,7 @@ struct ContentView: View {
                             
                             if task.isFavorite {
                                 Image(systemName: "heart.fill")
+                                    .accessibilityIdentifier("homeCellFavouriteImage")
                                     .foregroundColor(.red)
                             }
 
